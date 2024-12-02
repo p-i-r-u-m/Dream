@@ -6,8 +6,7 @@
 #include "task.h"
 
 // Function declaration
-void addTask(std::vector<Task>& tasks, const std::string& name,
-    const std::string& priority, const std::string& due_date);
+void addTask(); 
 
 
 #endif // TASK_CREATION_H
