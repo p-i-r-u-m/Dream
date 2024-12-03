@@ -24,12 +24,14 @@ void printTasks(const int mode)
   //   1    print just pending tasks
   //   2    print just completed tasks
 
+  int count_num_tasks;
 
+  // Print completed and pending tasks
   if (mode == 0) {
     
     std::cout << "\033[1m" << "\n======== Tasks to Do ========\n" << "\033[0m";
     
-    int count_num_tasks = 0;
+    count_num_tasks = 0;
 
     for (const auto& task : highPriorityTasks) {
       std::cout << "[ ] "<< "\033[31mTask " << task.id << ": " << "\033[0m"
@@ -61,11 +63,59 @@ void printTasks(const int mode)
     }
 
     std::cout << "\033[1m" << "Total: " << count_num_tasks << "\033[0m\n";
+  } 
+
+  // Print just pending tasks
+  else if (mode == 1) {
+
+    std::cout << "\033[1m" << "\n======== Tasks to Do ========\n" << "\033[0m";
+    
+    int count_num_tasks = 0;
+
+    for (const auto& task : highPriorityTasks) {
+      std::cout << "[ ] "<< "\033[31mTask " << task.id << ": " << "\033[0m"
+        << task.name << std::endl;
+      count_num_tasks++;
+    }
+
+    for (const auto& task : mediumPriorityTasks) {
+      std::cout << "[ ] "<< "\033[33mTask " << task.id << ": " << "\033[0m"
+        << task.name << std::endl;
+      count_num_tasks++;
+    }
+
+    for (const auto& task : lowPriorityTasks) {
+      std::cout << "[ ] "<< "\033[32mTask " << task.id << ": " << "\033[0m"
+        << task.name << std::endl;
+      count_num_tasks++;
+    }
+
+    std::cout << "\033[1m" << "Total: " << count_num_tasks << "\033[0m\n";
+  }
+
+  // Print just completed tasks 
+  else if (mode == 2) {
+    
+    std::cout << "\033[1m" << "\n====== Completed Tasks ======\n" << "\033[0m";
+    count_num_tasks = 0;
+
+    for (const auto& task : completedTasks) {
+      std::cout << "[x] "<< "\033[34mTask " << task.id << ": " << "\033[0m"
+        << task.name << std::endl;
+      count_num_tasks++;
+    }
+
+    std::cout << "\033[1m" << "Total: " << count_num_tasks << "\033[0m\n";
   }
 }
 
 
 void displayTasks(const std::string& database, const int mode) {
+  
+  highPriorityTasks = {};
+  mediumPriorityTasks = {};
+  lowPriorityTasks = {};
+  completedTasks = {};
 
   // Open database in read mode
   std::ifstream TaskDatabase(database);
@@ -76,7 +126,7 @@ void displayTasks(const std::string& database, const int mode) {
     return;
   }
 
-  std::cout << "File opened successfully!" << std::endl;
+  // std::cout << "File opened successfully!" << std::endl;
 
   char c;
   bool dataFound = false;

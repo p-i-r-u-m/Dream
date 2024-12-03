@@ -15,7 +15,13 @@ int main (int argc, char *argv[]) {
   
   addTask();
 
-  displayTasks("task-database.data", 0); 
+  displayTasks("task-database.data", 0);
+
+  checkDoneTaskFromDatabase("task-database.data", 4);
+
+
+  displayTasks("task-database.data", 0);
+
 
   return 0;
 }
