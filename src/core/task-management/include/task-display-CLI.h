@@ -5,6 +5,6 @@
 // Connect task.h because need structure of Task
 #include "task.h"
 
-void displayTasks(const std::vector<Task>& tasks);
+void displayTasks(const std::string& database, const int mode);
 
 #endif // TASK_DISPLAY_CLI_H

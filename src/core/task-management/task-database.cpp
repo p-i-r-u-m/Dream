@@ -8,7 +8,8 @@
 #include "./include/task-database.h"
 
 void saveTaskToDatabase(const std::string database, const int task_id,
-    const std::string task_name, const std:: string task_priority)
+    const std::string task_name, const int task_priority, 
+    const int task_status)
 {
   
   // Open database in write/add mode
@@ -20,29 +21,22 @@ void saveTaskToDatabase(const std::string database, const int task_id,
     return;
   }
 
-  // Intialize new task
-  TaskDatabase.put('@');
-
   // Include task ID
-  TaskDatabase.put('#');
   TaskDatabase << task_id;
-  TaskDatabase.put('#');
-  TaskDatabase << "\n";
+  TaskDatabase << " ";
 
-  // Include task description
-  TaskDatabase.put('~');
-  TaskDatabase << task_name;
-  TaskDatabase.put('~');
-  TaskDatabase << "\n";
+  // Include task status
+  TaskDatabase << task_status;
+  TaskDatabase << " ";
 
   // Include task priority 
-  TaskDatabase.put('`');
   TaskDatabase << task_priority;
-  TaskDatabase.put('`');
-  TaskDatabase << "\n";
+  TaskDatabase << " ";
 
+  // Include task description
+  TaskDatabase << task_name;
+  
   // Finish task initalization
-  TaskDatabase.put('@');
   TaskDatabase << "\n";
 
   std::cout << "\033[32m" << "Task added successfully!\n" << "\033[0m";

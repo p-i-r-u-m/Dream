@@ -6,16 +6,14 @@
 #include <string>
 
 // Structure of Task for saving tasks
-struct Task {
+struct Task { 
   int id;
+  int status;
+  int priority;
   std::string name;
-  std::string priority;
 };
 
 // Function declaration
 
-
-
-void displayTasks(const std::vector<Task>& tasks);
 
 #endif // TASK_H

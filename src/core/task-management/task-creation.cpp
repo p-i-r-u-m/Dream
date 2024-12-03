@@ -65,11 +65,43 @@ void addTask() {
   // Ask and get description of the task from user
   std::cout << "\033[1m" << "Enter task name: " << "\033[0m";
   std::getline(std::cin, newTask.name);
+ 
+
+  // Ask priority of the task and check correct input 
+  std::string priority;
+  bool correct_priority = false;
+
+  do {
+    std::cout << "\033[1m" << "Enter priority (H/M/L): " << "\033[0m";
+    std::getline(std::cin, priority);
   
-  std::cout << "\033[1m" << "Enter priority (H/M/L): " << "\033[0m";
-  std::getline(std::cin, newTask.priority);
+    if (priority == "H" || priority == "M" ||
+      priority == "L" || priority.empty())
+    {
+      // if user input relevant option the loop of asking will end 
+      correct_priority = true;
+    } else {
+      // on other way it will print error and ask one more time
+      std::cerr << "Please enter relevant priority (H/M/L) :)" << std::endl;
+      correct_priority = false;
+    }
+
+  } while(!correct_priority);
+
+  // translate priority into number representation, for easy filtering
+  if (priority == "H") {
+    newTask.priority = 2;
+  } else if (priority == "M") {
+    newTask.priority = 1;
+  } else {
+    newTask.priority = 0;
+  }
 
 
-  saveTaskToDatabase("task-database.data", newTask.id, newTask.name, newTask.priority);
+  // Set new task status to pending
+  newTask.status = 0;
+
+  saveTaskToDatabase("task-database.data", newTask.id, newTask.name,
+      newTask.priority, newTask.status);
 
 }
