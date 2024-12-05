@@ -11,7 +11,7 @@
 #include "./include/character.h"
 
 
-void saveStatsToDatabase(const std::string database, const std::vector<Character> HeroStats,
+void saveStatsToDatabase(const std::string database, const std::vector<Character> HeroStatsDB,
     const bool CLI)
 {
   
@@ -26,7 +26,7 @@ void saveStatsToDatabase(const std::string database, const std::vector<Character
     return;
   }
 
-  for (const auto& stat : HeroStats) { 
+  for (const auto& stat : HeroStatsDB) { 
     // Include character level
     CharacterDatabase << stat.level;
     CharacterDatabase << " ";

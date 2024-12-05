@@ -15,6 +15,6 @@ struct Character {
 
 
 // Function declaration
-
+// extern std::vector<Character> HeroStats;
 
 #endif // CHARACTER_H

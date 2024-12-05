@@ -15,11 +15,11 @@ int taskIDcounter() {
   int task_id = 0;
 
   // Open the file in read-write mode (for reading and updating the task ID).
-  std::fstream TaskIDDatabase("task-id.data", std::ios::in | std::ios::out);
+  std::fstream TaskIDDatabase("/usr/local/bin/task-id.data", std::ios::in | std::ios::out);
 
   // If the file does not exist, create it and initialize the task ID to 1.
   if (!TaskIDDatabase) {
-    std::ofstream createFile("task-id.data");
+    std::ofstream createFile("/usr/local/bin/task-id.data");
     if (!createFile) {
       std::cerr << "Error: Unable to create Task ID database file!" << std::endl;
       return -1; // Return -1 to indicate an error.
@@ -105,7 +105,7 @@ void addTask() {
 
 
 
-  saveTaskToDatabase("task-database.data", newTask.id, newTask.name,
+  saveTaskToDatabase("/usr/local/bin/task-database.data", newTask.id, newTask.name,
       newTask.priority, newTask.status, true);
 
 }

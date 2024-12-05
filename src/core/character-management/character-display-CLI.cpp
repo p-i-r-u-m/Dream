@@ -13,10 +13,8 @@
 #include "./include/character-database.h"
 #include "./include/character-display-CLI.h"
 
-std::vector<Character> HeroStats;
 
-
-void printHeroStats(const int mode) {
+void printHeroStats(const std::vector<Character> DisplayHeroStats, const int mode) {
 
   /*// Debugging*/
   /*for (const auto& stat : HeroStats)*/
@@ -45,7 +43,7 @@ void printHeroStats(const int mode) {
   if (mode == 0) {
     std::cout << "\033[1m" << avatar_part1;
     std::cout << "\033[33m" << avatar_part2 << "\033[0m\n\033[1m";
-    for (const auto& stat : HeroStats) {
+    for (const auto& stat : DisplayHeroStats) {
       std::cout 
         << "Your name:     " << stat.name << "\n\n"
         
@@ -58,7 +56,7 @@ void printHeroStats(const int mode) {
 }
 
 void displayHeroStats(const std::string database, const int mode) {
-  
+  std::vector<Character> HeroStats; 
   HeroStats = {};
 
   // Open database in read mode
@@ -96,6 +94,6 @@ void displayHeroStats(const std::string database, const int mode) {
   // Close file
   CharacterDatabase.close();
   
-  printHeroStats(mode);
+  printHeroStats(HeroStats, mode);
 
 }

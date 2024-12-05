@@ -8,6 +8,7 @@
 
 // Connect headers
 #include "./include/task-database.h"
+#include "../character-management/include/character-level.h"
 
 void saveTaskToDatabase(const std::string database, const int task_id,
     const std::string task_name, const int task_priority, 
@@ -109,7 +110,7 @@ void deleteTaskFromDatabase(const std::string& database, const int taskID) {
 
     // Fill database just with needed tasks
     for (const auto& task : neededTasks) {
-      saveTaskToDatabase("task-database.data", task.id, task.name,
+      saveTaskToDatabase("/usr/local/bin/task-database.data", task.id, task.name,
         task.priority, task.status, false);
     }
     
@@ -121,6 +122,8 @@ void deleteTaskFromDatabase(const std::string& database, const int taskID) {
 
 void checkDoneTaskFromDatabase(const std::string& database, const int taskID) {
   
+  int points = 10;
+
   std::vector<Task> neededTasks = {};
     
   // Open database in read-write mode
@@ -187,6 +190,8 @@ void checkDoneTaskFromDatabase(const std::string& database, const int taskID) {
     }
     
     std::cout << "\033[32mTask " << taskID << " checked DONE.\033[0m" << std::endl;
+    IncreaseProficiency("hero-stats.data", points);
+
     return;
   }
 }

@@ -6,7 +6,7 @@
 #include <string>
 
 // Initialize the database
-void saveStatsToDatabase(const std::string database, const std::vector<Character> HeroStats,
+void saveStatsToDatabase(const std::string database, const std::vector<Character> HeroStatsDB,
     const bool CLI);
 
 #endif // CHARACTER_DATABASE_H
