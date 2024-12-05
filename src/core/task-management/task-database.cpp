@@ -185,12 +185,12 @@ void checkDoneTaskFromDatabase(const std::string& database, const int taskID) {
 
     // Fill database just with needed tasks
     for (const auto& task : neededTasks) {
-      saveTaskToDatabase("task-database.data", task.id, task.name,
+      saveTaskToDatabase("/usr/local/bin/task-database.data", task.id, task.name,
         task.priority, task.status, false);
     }
     
     std::cout << "\033[32mTask " << taskID << " checked DONE.\033[0m" << std::endl;
-    IncreaseProficiency("hero-stats.data", points);
+    IncreaseProficiency("/usr/local/bin/hero-stats.data", points);
 
     return;
   }
