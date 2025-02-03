@@ -1,55 +1,37 @@
 // task-database.cpp
 
-// Connect libraries
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <sstream>
+#include "./include/task.h"
 
-// Connect headers
-#include "./include/task-database.h"
-#include "../character-management/include/character-level.h"
 
-void saveTaskToDatabase(const std::string database, const int task_id,
+void saveTaskToDatabase
+  ( const std::string database, const int task_id,
     const std::string task_name, const int task_priority, 
-    const int task_status, const bool CLI)
+    const int task_status, const bool CLI )
 {
   
   // Open database in write/add mode
   std::fstream TaskDatabase(database, std::ios::out | std::ios::app);
 
   // Check is file open
-  if (!TaskDatabase.is_open()) {
+  if (!TaskDatabase.is_open()) 
+  {
     std::cerr << "Error: Unable to open or create database file!" << std::endl;
     return;
   }
 
-  // Include task ID
-  TaskDatabase << task_id;
-  TaskDatabase << " ";
-
-  // Include task status
-  TaskDatabase << task_status;
-  TaskDatabase << " ";
-
-  // Include task priority 
-  TaskDatabase << task_priority;
-  TaskDatabase << " ";
-
-  // Include task description
-  TaskDatabase << task_name;
   
-  // Finish task initalization
-  TaskDatabase << "\n";
+  TaskDatabase << task_id << " " << task_status << " "
+               << task_priority << " " << task_name << "\n";
 
-  if (CLI) {
+  if (CLI)
     std::cout << "\033[32m" << "Task added successfully!\n" << "\033[0m";
-  }
 }
 
 
 
-void deleteTaskFromDatabase(const std::string& database, const int taskID) {
+void deleteTaskFromDatabase
+  ( const std::string& database, const int taskID ) 
+{
   
   std::vector<Task> neededTasks = {};
     
@@ -57,20 +39,19 @@ void deleteTaskFromDatabase(const std::string& database, const int taskID) {
   std::fstream TaskDatabase(database, std::ios::in | std::ios::out);
 
   // Check if file is open
-  if (!TaskDatabase.is_open()) {
+  if (!TaskDatabase.is_open()) 
+  {
     std::cerr << "Error: Unable to open or create database file!" << std::endl;
     return;
   }
 
-  // std::cout << "File opened successfully!" << std::endl;
-
   char c;
   bool taskFound = false;
-
   std::string line;
     
   // Reading database line by line
-  while (std::getline(TaskDatabase, line)) {
+  while ( std::getline(TaskDatabase, line) ) 
+  {
     std::istringstream stream(line);
     Task newTask;
 
@@ -79,12 +60,15 @@ void deleteTaskFromDatabase(const std::string& database, const int taskID) {
 
     std::getline(stream >> std::ws, newTask.name);
     
-    // Check is task id in the database
-    if (newTask.id != taskID) {
-      neededTasks.push_back(newTask);
-    } else if (newTask.id == taskID){
+    // If task with needed ID is found, check boolean true and 
+    // don't write this task into the vertor
+    //
+    if ( newTask.id == taskID )
+    {
       std::cout << "\033[32mTask " << taskID << " successfully found.\033[0m\n";
       taskFound = true;
+    } else {
+      neededTasks.push_back(newTask);
     }
   }
 
